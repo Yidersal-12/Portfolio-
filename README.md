@@ -33,6 +33,6 @@ portfolio/
 
 - GitHub: https://github.com/yidezee-11
 - LinkedIn: https://www.linkedin.com/in/yidersal-zewdu-7ba0003b6
-
+- https://t.me/Yi_1321
 
 ⭐ If you like this project, give it a star!
