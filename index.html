@@ -23,15 +23,15 @@
 
         /* LIGHT MODE */
         body.light-mode {
-            --dark: #f5f7ff;
-            --card-bg: #ffffff;
-            --secondary: #dbeafe;
-            --text-color: #0f172a;
-            --text-muted: #475569;
-            --nav-bg: rgba(255, 255, 255, 0.9);
-            --footer-bg: #e2e8f0;
-            --footer-text: #334155;
-        }
+    --dark: #f5f7ff;
+    --card-bg: #ffffff;
+    --secondary: #dbeafe;
+    --text-color: #0f172a;
+    --text-muted: #475569;
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --footer-bg: #e2e8f0;
+    --footer-text: #334155;
+}
 
         * {
             margin: 0;
@@ -76,7 +76,7 @@
         }
 
         @keyframes spin {
-            100% {
+            10% {
                 transform: rotate(360deg);
             }
         }
@@ -263,16 +263,37 @@
         }
 
         .typing {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            min-height: 1.5em;
-            border-right: 2px solid var(--primary);
-            white-space: nowrap;
-            overflow: hidden;
-            margin-top: 10px;
-            position: relative;
-            z-index: 1;
-        }
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    min-height: 1.5em;
+    border-right: 2px solid var(--primary);
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .typing {
+        font-size: 1rem;
+        max-width: 95%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .typing {
+        font-size: 0.9rem;
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
 
         /* SECTIONS */
         section {
@@ -1043,8 +1064,14 @@
             body.light-mode nav ul {
                 background: rgba(255, 255, 255, 0.97);
                 border-left: 1px solid rgba(0, 0, 0, 0.15);
+                
+                
+                
             }
 
+            
+            
+            
             nav ul.active {
                 right: 0;
             }
@@ -1406,17 +1433,43 @@
             }
         }
 
-        // --- THEME TOGGLE ---
-        const toggleBtn = document.getElementById("themeToggle");
-        toggleBtn.addEventListener("click", () => {
-            document.body.classList.toggle("light-mode");
-            if (document.body.classList.contains("light-mode")) {
-                toggleBtn.innerHTML = "☀️";
-            } else {
-                toggleBtn.innerHTML = "🌙";
-            }
-        });
+       // --- SEQUENTIAL ACCENT COLOURS FOR LIGHT MODE ---
+const lightModeAccents = [
+    "#2563eb",  // 🔵 royal blue
+    "#dc2626",  // 🔴 bright red
+    "#ca8a04",  // 🟡 golden yellow
+    "#059669",  // 🟢 forest green
+    
+    "#7c3aed",  // 🟣 rich purple
+    "#be185d",  // 🩷 hot pink
+    "#0d9488",  // 🩵 teal
+    "#c2410c",  // 🟤 burnt orange
+   
+];
 
+let currentAccentIndex = 0;
+
+function getNextAccent() {
+    const accent = lightModeAccents[currentAccentIndex];
+    currentAccentIndex = (currentAccentIndex + 1) % lightModeAccents.length; // loop back when done
+    return accent;
+}
+
+// --- THEME TOGGLE ---
+const toggleBtn = document.getElementById("themeToggle");
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    if (document.body.classList.contains("light-mode")) {
+        const newAccent = getNextAccent();
+        document.documentElement.style.setProperty("--primary", newAccent);
+        toggleBtn.innerHTML = "☀️";
+    } else {
+        // Reset to original dark-mode cyan
+        document.documentElement.style.setProperty("--primary", "#00f5ff");
+        toggleBtn.innerHTML = "🌙";
+    }
+});
         // --- ACTIVE NAV LINK ---
         const sections = document.querySelectorAll("section");
         const navLinks = document.querySelectorAll("nav ul li a");
